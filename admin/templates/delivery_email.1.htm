@@ -1,0 +1,84 @@
+{if $full_page} {include file="pageheader.htm"} {insert_scripts files="../js/utils.js,listtable.js"}
+<!-- 订单搜索 -->
+<div class="form-div">
+  
+</form>
+<script language="JavaScript">
+  listTable.recordCount = { $record_count };
+  listTable.pageCount = { $page_count };
+
+  { foreach from= $filter item= item key= key }
+  listTable.filter.{$key } = '{$item}';
+  {/foreach}
+    { literal }
+
+    onload = function () {
+      // 开始检查订单
+      startCheckOrder();
+
+      //
+      listTable.query = "delivery_email_query";
+    }
+
+    /**
+     * 搜索订单
+     */
+    function searchOrder() {
+      // listTable.filter['order_sn'] = Utils.trim(document.forms['searchForm'].elements['order_sn'].value);
+      // listTable.filter['consignee'] = Utils.trim(document.forms['searchForm'].elements['consignee'].value);
+      // listTable.filter['status'] = document.forms['searchForm'].elements['status'].value;
+      listTable.filter['brand_id'] = document.forms['searchForm'].elements['brand_id'].value;
+      // listTable.filter['delivery_sn'] = document.forms['searchForm'].elements['delivery_sn'].value;
+      listTable.filter['korea_start_date'] = document.forms['searchForm'].elements['korea_start_date'].value;
+      listTable.filter['korea_end_date'] = document.forms['searchForm'].elements['korea_end_date'].value;
+      listTable.filter['order_sn'] = document.forms['searchForm'].elements['order_sn'].value;
+      listTable.filter['status'] = document.forms['searchForm'].elements['status'].value;
+      listTable.filter['orderStatus'] = document.forms['searchForm'].elements['orderStatus'].value;
+      listTable.filter['todaydaohuo'] = document.forms['searchForm'].elements['todaydaohuo'].value;
+
+      
+      listTable.filter['page'] = 1;
+      listTable.query = "delivery_email_query";
+      listTable.loadList();
+    }
+
+    function check() {
+      var snArray = new Array();
+      var eles = document.forms['listForm'].elements;
+      for (var i = 0; i < eles.length; i++) {
+        if (eles[i].tagName == 'INPUT' && eles[i].type == 'checkbox' && eles[i].checked && eles[i].value != 'on') {
+          snArray.push(eles[i].value);
+        }
+      }
+      // console.log(111,snArray.toString())
+      if (snArray.length == 0) {
+        return false;
+      }
+      else {
+        eles['rec_id'].value = snArray.toString();
+
+        return true;
+      }
+    }
+
+
+    /**
+     * 订单货商品切换状态  by lin
+     */
+    listTable.toggle_a = function (obj, act, id) {
+      //var val = (obj.src.match(/yes_a.gif/i)) ? 0 : 1;
+
+      var res = Ajax.call(this.url, "act=ordergoodstatus" + "&val=" + act + "&id=" + id, null, "POST", "JSON", false);
+      console.log(111,act)
+      if (res.message) {
+        alert(res.message);
+      }
+
+      if (res.error == 0) {
+        //obj.src = (res.content > 0) ? 'images/yes_a.gif' : 'images/no_a.gif';
+        console.log(112,res)
+      }
+    }
+
+</script>
+{/literal} {include file="pagefooter.htm"} {/if}

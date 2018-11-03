@@ -1,0 +1,251 @@
+{if $full_page} {include file="pageheader.htm"} {insert_scripts files="../js/utils.js,listtable.js"}
+<!-- 订单搜索 -->
+<div class="form-div">
+
+
+  <form action="javascript:searchOrder()" name="searchForm">
+    <img src="images/icon_search.gif" width="26" height="22" border="0" alt="SEARCH" /> date
+    <input name="korea_start_date" type="date" value='{$korea_start_date}' size="12" maxlength="10" /> -
+    <input name="korea_end_date" type="date" size="12" value='{$korea_end_date}' maxlength="10" /> order_sn
+    <input name="order_sn" type="text" size="20" value='' maxlength="20" />
+
+    <select name="status_paizi">
+      <option value="-1">상품발송상태선택</option>
+      <option value="0">준비중</option>
+      <option value="1">품절</option>
+      <option value="2">발송</option>
+      <option value="3">예약배송</option>
+
+    </select>
+    <select name="orderStatus">
+      <option value="-1">주문장상태선택</option>
+      <option value="1">미발송주문장</option>
+      <option value="2">발송완료주문장</option>
+      <option value="3">not include cancel order</option>
+    </select>
+
+    <input type="submit" value="조회" class="button" />
+  </form>
+</div>
+
+<!-- 订单列表 -->
+
+<form method="post" action="orderpaizi.php" name="listForm" onsubmit="return check()">
+  <div class="list-div" id="listDiv">
+    {/if}
+
+    <table cellpadding="3" cellspacing="1">
+      <tr>
+        <th>
+          <input onclick='listTable.selectAll(this, "rec_id")' type="checkbox" {if $node_info}disabled{/if}/>
+          <a href="javascript:listTable.sort('delivery_sn', 'DESC'); ">{$lang.label_order_sn}</a>{$sort_delivery_sn}
+        </th>
+        <th>
+          <a href="#">img</a>
+        </th>
+        <th>
+          <a href="javascript:listTable.sort('order_sn', 'DESC'); ">상품명 <!--名称--></a>{$sort_order_sn}</th>
+        <th>
+          <a href="#"> 브랜드 <!--韩国名称/牌子--></a>
+        </th>
+
+        <th>
+          <a href="javascript:listTable.sort('add_time', 'DESC'); ">품번 <!--货号--></a>{$sort_add_time}</th>
+        <th>
+          <a href="javascript:listTable.sort('consignee', 'DESC'); ">색상 사이즈 <!--颜色码数--></a>{$sort_consignee}</th>
+        <th>
+          <a href="javascript:listTable.sort('update_time', 'DESC'); ">Number <!--数量--></a>{$sort_update_time}</th>
+
+        <th>주문일자 <!--下单时间--></th>
+
+        <th>handler</th>
+        <tr>
+          {foreach from=$delivery_list item=goods }
+          <tr>
+            <td valign="top" nowrap="nowrap">
+              <input type="checkbox" name="rec_id[]" value="{$goods.rec_id}" {if $node_info}disabled{/if} />{$goods.order_sn}</td>
+            <td>
+              <img width="100" src="../../{$goods.goods_thumb}" />
+            </td>
+            <td>{$goods.goods_name} </td>
+            <td>{$goods.korea_name} {$goods.brand_name} </td>
+            <td>{$goods.goods_sn}</td>
+            <td>{$goods.goods_attr}</td>
+            <td>{$goods.goods_number}</td>
+
+            <td>{$goods.add_time}
+              <br />
+               handler:{$goods.paizi_time}
+            </td>
+
+            <td>
+            {if $goods.order_status eq 5 }
+               {if $goods.status eq 2 }
+              <p style="color:blue">발송완료(중)
+                <!--已发货完成-->
+              </p> 
+               {elseif $goods.status eq 4 }
+              <p style="color:red">取消
+                <!--取消-->
+              </p>
+              {/if}
+            
+              준비중 <!--(准备中）-->
+              <input type="radio" name="{$goods.rec_id}" {if $goods.status_paizi eq 0}checked="checked"
+                {/if} onclick="listTable.toggle_a(this, 0, {$goods.rec_id})" /> 품절<!--(缺货）-->
+              <input type="radio" name="{$goods.rec_id}" {if $goods.status_paizi eq 1}checked="checked" {/if} onclick="listTable.toggle_a(this, 1, {$goods.rec_id})"
+              />  
+              </br>
+               발송<!--(发货）-->
+              <input type="radio" name="{$goods.rec_id}" {if $goods.status_paizi eq 2}checked="checked" {/if} onclick="listTable.toggle_a(this, 2, {$goods.rec_id})"
+              /> 예약배송<!--(预售）-->
+              <input type="radio" name="{$goods.rec_id}" {if $goods.status_paizi eq 3}checked="checked" {/if} onclick="listTable.toggle_a(this, 3, {$goods.rec_id})"
+              />
+              
+            
+            
+           
+
+
+              <br/> remark<!--(备注)-->
+              <input type="text" name="{$goods.rec_id}" value="{$goods.remark_paizi}" onclick="listTable.edit_a(this, 'edit_remark_paizi', {$goods.rec_id})"
+              />
+            {elseif $goods.order_status eq 1 &&  $goods.pay_status eq 0}
+              <span style="color:red">결제진행중</span>
+            {else} <span style="color:red">order cancel</span>{/if}
+            </td>
+
+          </tr>
+          {/foreach}
+    </table>
+
+    <!-- 分页 -->
+    <table id="page-table" cellspacing="0">
+      <tr>
+        <td align="right" nowrap="true">
+          {include file="page.htm"}
+        </td>
+      </tr>
+    </table>
+
+<input name="delivery_export" type="submit" id="btnSubmit3" value="download" class="button" disabled="true" onclick="{if(confirm('download?')){return true;}return false;}"
+/>
+    {if $full_page}
+
+  </div>
+</form>
+<script language="JavaScript">
+  console.log('filter', listTable)
+  listTable.pageCount = { $page_count };
+
+  { foreach from = $filter item = item key = key }
+  listTable.filter.{ $key } = '{$item}';
+  {/foreach}
+    { literal }
+
+    onload = function () {
+      // 开始检查订单
+      startCheckOrder();
+
+      //
+      listTable.query = "delivery_email_query";
+    }
+
+    /**
+     * 搜索订单
+     */
+    function searchOrder() {
+      // listTable.filter['order_sn'] = Utils.trim(document.forms['searchForm'].elements['order_sn'].value);
+      // listTable.filter['consignee'] = Utils.trim(document.forms['searchForm'].elements['consignee'].value);
+      // listTable.filter['status'] = document.forms['searchForm'].elements['status'].value;
+      // listTable.filter['brand_id'] = document.forms['searchForm'].elements['brand_id'].value;
+      // listTable.filter['delivery_sn'] = document.forms['searchForm'].elements['delivery_sn'].value;
+      listTable.filter['korea_start_date'] = document.forms['searchForm'].elements['korea_start_date'].value;
+      listTable.filter['korea_end_date'] = document.forms['searchForm'].elements['korea_end_date'].value;
+      listTable.filter['order_sn'] = document.forms['searchForm'].elements['order_sn'].value;
+      listTable.filter['status_paizi'] = document.forms['searchForm'].elements['status_paizi'].value;
+      //  listTable.filter['status_paizi'] = document.forms['searchForm'].elements['status_paizi'].value;
+      listTable.filter['orderStatus'] = document.forms['searchForm'].elements['orderStatus'].value;
+
+
+
+      listTable.filter['page'] = 1;
+      listTable.query = "delivery_email_query";
+      listTable.loadList();
+    }
+
+    function check() {
+      var snArray = new Array();
+      var eles = document.forms['listForm'].elements;
+      for (var i = 0; i < eles.length; i++) {
+        if (eles[i].tagName == 'INPUT' && eles[i].type == 'checkbox' && eles[i].checked && eles[i].value != 'on') {
+          snArray.push(eles[i].value);
+        }
+      }
+       console.log(111, eles)
+      // console.log(111,snArray.toString())
+      if (snArray.length == 0) {
+        return false;
+      }
+      else {
+        eles['rec_id'].value = snArray.toString();
+
+        return true;
+      }
+    }
+
+
+    /**
+     * 订单货商品切换状态  by lin
+     */
+    listTable.toggle_a = function (obj, act, id) {
+      //var val = (obj.src.match(/yes_a.gif/i)) ? 0 : 1;
+
+      var res = Ajax.call(listTable.url, "act=ordergoodstatus" + "&val=" + act + "&id=" + id, null, "POST", "JSON", false);
+      console.log(111, act)
+      if (res.message) {
+        alert(res.message);
+      }
+
+      if (res.error == 0) {
+        //obj.src = (res.content > 0) ? 'images/yes_a.gif' : 'images/no_a.gif';
+        // console.log(112,res)
+      }
+    }
+
+    /**
+     * 创建一个可编辑区
+     */
+    listTable.edit_a = function (obj, act, id) {
+      // var tag = obj.firstChild.tagName;
+
+
+
+      /* 编辑区失去焦点的处理函数 */
+      obj.onblur = function (e) {
+
+        res = Ajax.call(listTable.url, "act=" + act + "&val=" + encodeURIComponent(Utils.trim(obj.value)) + "&id=" + id, null, "POST", "JSON", false);
+
+        if (res.message) {
+          alert(res.message);
+        }
+
+        console.log('remark', listTable)
+        if (Utils.trim(obj.value).length > 0) {
+          // res = Ajax.call(listTable.url, "act=" + act + "&val=" + encodeURIComponent(Utils.trim(obj.value)) + "&id=" + id, null, "POST", "JSON", false);
+
+          // if (res.message) {
+          //   alert(res.message);
+          // }
+
+          // console.log('remark', obj.value)
+          // obj.value = (res.error == 0) ? res.content : '';
+        }
+        else {
+          obj.value = '';
+        }
+      }
+    }
+
+
+</script> {/literal} {include file="pagefooter.htm"} {/if}

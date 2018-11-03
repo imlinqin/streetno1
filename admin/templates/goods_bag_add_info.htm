@@ -1,0 +1,211 @@
+<!-- $Id: topics.php 2009-05-12 09:37:33Z lium $ -->
+{include file="pageheader.htm"}
+<div class="form-div">
+ <a href="goods_bag_add.php?act=list">列表</a></div>
+<form method="post" action="goods_bag_add.php" name="topicForm" enctype="multipart/form-data" onsubmit="return validate()">
+<div class="main-div">
+<table width="100%" >
+{if $form_action eq "update"}
+<tr>
+    <td align="right" style="padding: 5px 1em; width: 10%; font-weight:bold">id:</td>
+    <td> <input name="csv_id" readonly="readonly" type="text" value="{$topic.csv_id}" />
+	</td>
+  </tr>
+ {/if}
+  <tr>
+    <td align="right" style="padding: 5px 1em; width: 10%; font-weight:bold">数据包标题:</td>
+    <td><input type="text" name="csv_title" placeholder="标题自动生成" maxlength="60" value="{$topic.csv_title}" />
+	<input name="csv_title_bao" type="radio" checked value="淘宝数据包" />淘宝
+
+	
+	{$lang.require_field}
+	
+	</td>
+  </tr>
+   <tr>
+    <td align="right" style="padding: 5px 1em; width: 10%; font-weight:bold">数据包信息:</td>
+    <td><textarea name="csv_title_a" cols="60" rows="5">{$topic.csv_title_a}</textarea>
+    </td>
+  </tr> 
+  <tr>
+    <td align="right" style="padding: 5px 1em; width: 10%; font-weight:bold">下载次数:</td>
+    <td> <input name="" readonly="readonly" type="text" value="{$topic.csv_click}" />
+	点击次数：<input name="" readonly="readonly" type="text" value="{$topic.csv_num}" />
+	
+	</td>
+  </tr>
+   <tr>
+    <td align="right" style="padding: 5px 1em; width: 10%; font-weight:bold">下载的用户:</td>
+    <td valign="middle"><textarea readonly="readonly" name="" cols="60" rows="7">{$topic.csv_ip}</textarea>
+     </td>
+  </tr> 
+   
+  
+<!--  <tr>
+    <td align="right" style="padding: 5px 1em; width: 10%; font-weight:bold">{$lang.topic_upload}:</td>
+    <td><input type="file" name="topic_upload"  size="45"  class="inputBg" /></td>
+	</td>
+  </tr>-->
+
+{if $form_action eq "update"}
+	{if $topic_upload_all[0]}
+  <tr>
+      <td align="right" style="padding: 5px 1em; width: 10%; font-weight:bold">附件:</td>
+      <td>
+    	<table width="100%" align="left">
+          {foreach item=file from=$topic_upload_all}
+		  {if $file}
+          <tr>
+          	<td><a href="../images/upload/Image/csv/{$file}"  target="_blank">{$file}</a><input type="checkbox" name="removefile[]" value="{$file}" onclick="if(this.checked){return confirm('您确定要删除吗？')}" /></td>
+          </tr>       
+		  {/if}
+          {/foreach}
+        </table>      </td>
+  </tr>
+  {/if}
+{/if}
+  <tr>
+  	  <td align="right" style="padding: 5px 1em; width: 10%; font-weight:bold">上传:</td>
+      <td>
+    	<table width="100%" id="gallery-table" align="center">
+          <tr>
+
+            <td>
+              <input type="file" name="topic_upload[]" /><!--<a href="javascript:;" onclick="addImg(this)">[+]</a>--> 
+			  &nbsp;&nbsp;或输入目录下 images/upload/Image/csv/ 的文件名：<input type="text" placeholder="例如：paizi.zip" name="csv_upload" maxlength="60" value="{$topic.csv_upload}" />
+			             </td>
+          </tr>
+        </table>      </td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">
+      <input type="submit" value="{$lang.button_submit}" class="button" />
+      <input type="reset" value="{$lang.button_reset}" class="button" />
+      <input type="hidden" name="act" value="{$form_action}" />
+      <input type="hidden" name="board_id" value="{$topic.board_id}" />
+      <input type="hidden" name="id" value="{$topic.topic_id}" />    </td>
+  </tr>
+{if $form_action eq "update?"}
+  <tr>
+    <td align="right" style="padding: 5px 1em; width: 10%; font-weight:bold">{$lang.topic_ip}:</td>
+    <td>{$topic.topic_ip}
+	
+	</td>
+  </tr>
+  <tr>
+    <td align="right" style="padding: 5px 1em; width: 10%; font-weight:bold">{$lang.topic_click}:</td>
+    <td>{$topic.topic_click}</td>
+  </tr>
+  <tr>
+    <td align="right" style="padding: 5px 1em; width: 10%; font-weight:bold">{$lang.re_num}:</td>
+    <td>{$topic.re_num}</td>
+  </tr>
+  <tr>
+    <td align="right" style="padding: 5px 1em; width: 10%; font-weight:bold">{$lang.comment_num}:</td>
+    <td>{$topic.comment_num}</td>
+  </tr>
+{/if}
+    <tr>
+      <td>&nbsp;</td>
+      <td>
+      {$lang.img_type_tips}<br />
+      {$lang.img_type_list}      </td>
+    </tr>
+</table>
+</div>
+
+
+</form>
+
+{insert_scripts files="../js/utils.js,validator.js"}
+{insert_scripts files="../js/transport.js,js/common.js"}
+{literal}
+<script language="JavaScript">
+<!--
+/*
+if (document.forms['topicForm'].elements['act'] == "insert")
+{
+  document.forms['topicForm'].elements['topic_title'].focus();
+}
+else
+{
+  document.forms['topicForm'].elements['topic_title'].focus();
+}
+*/
+onload = function()
+{
+    // 开始检查订单
+    startCheckOrder();
+}
+
+   var filenum=1;
+  /**
+   * 新增一个图片
+   */
+  function addImg(obj)
+  {
+      if(filenum>=10)return alert('对不起只允许同时上传最多10个附件！');
+      var src  = obj.parentNode.parentNode;
+      var idx  = rowindex(src);
+      var tbl  = document.getElementById('gallery-table');
+      var row  = tbl.insertRow(idx + 1);
+      var cell = row.insertCell(-1);
+      cell.innerHTML = src.cells[0].innerHTML.replace(/(.*)(addImg)(.*)(\[)(\+)/i, "$1removeImg$3$4-");
+      filenum++;
+  }
+
+  /**
+   * 删除图片上传
+   */
+  function removeImg(obj)
+  {
+      var row = rowindex(obj.parentNode.parentNode);
+      var tbl = document.getElementById('gallery-table');
+
+      tbl.deleteRow(row);
+      filenum--;
+  }
+
+/**
+ * 检查表单输入的数据
+ */
+function validate()
+{
+    validator = new Validator("topicForm");
+
+    if (document.forms['topicForm'].elements['act'].value == "insert")
+    {
+        //validator.required("csv_title",  no_topic_title);
+        //validator.isEmail("topic_email",  invalid_email);
+		
+        //validator.required("topicpagesize",  no_topicpagesize);
+        //validator.isInt("topiclength",  int_topiclength);
+        //validator.isInt("topicpagesize",  int_topicpagesize);
+        //validator.eqaul("password", "confirm_password", password_not_same);
+    }
+    else if (document.forms['topicForm'].elements['act'].value == "update")
+    {
+        //validator.required("csv_title",  no_topic_title);
+        //validator.isEmail("topic_email",  invalid_email);
+		
+/*        var newpass = document.forms['topicForm'].elements['password'];
+        var confirm_password = document.forms['topicForm'].elements['confirm_password'];
+        if(newpass.value.length > 0 || confirm_password.value.length)
+        {
+          if(newpass.value.length >= 6 || confirm_password.value.length >= 6)
+          {
+            validator.eqaul("password", "confirm_password", password_not_same);
+          }
+          else
+          {
+            validator.addErrorMsg(password_len_err);
+          }
+        }
+*/    }
+
+    return validator.passed();
+}
+//-->
+</script>
+{/literal}
+{include file="pagefooter.htm"}

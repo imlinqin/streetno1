@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf8"?>
+<imgs>
+<gexing>
+ <img1>
+    <src>gexin</src>
+    <endtime>2002</endtime>
+    <school>培新小学</school>
+  </img1>
+  <img2>
+    <starttime>2002</starttime>
+    <endtime>2006</endtime>
+    <school>览表东阳学校</school>
+  </img2>
+</gexing>
+ 
+  <period>
+    <starttime>2006</starttime>
+    <endtime>2009</endtime>
+    <school>惠来慈云实验中学</school>
+  </period>
+  <period>
+    <starttime>2009</starttime>
+    <endtime>2012</endtime>
+    <school>惠来一中</school>
+  </period>
+  <period>
+    <starttime>2012</starttime>
+    <endtime>2016</endtime>
+    <school>华南师范大学</school>
+  </period>
+</imgs>
+
+
+ <persons count="10">
+            <person username="username1" age="20">this is username1 description</person>
+            <person username="username2" age="20">this is username2 description</person>
+        </persons>

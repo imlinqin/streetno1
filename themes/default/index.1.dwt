@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>{$page_title}</title>
+<!-- TemplateEndEditable --><!-- TemplateBeginEditable name="head" --><!-- TemplateEndEditable -->
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
+<link href="{$ecs_css_path}" rel="stylesheet" type="text/css" />
+<link rel="alternate" type="application/rss+xml" title="RSS|{$page_title}" href="{$feed_url}" />
+<link rel="stylesheet" type="text/css" href="themes/default/images/swiper.min.css">
+<script language='javascript' src='themes/default/js/swiper.min.js' type='text/javascript' charset='utf-8'></script>
+{* 包含脚本文件 *}
+{insert_scripts files='common.js,index.js'}
+</head>
+<body>
+<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem -->
+<script>
+if (Object.prototype.toJSONString){
+      var oldToJSONString = Object.toJSONString;
+      Object.prototype.toJSONString = function(){
+        if (arguments.length > 0){
+          return false;
+        }else{
+          return oldToJSONString.apply(this, arguments);
+        }
+}}</script>
+
+
+
+  <!--弹出广告-->
+<!-- #BeginLibraryItem "/library/index_floatad.lbi" --><!-- #EndLibraryItem -->
+
+
+<div class="indexpage clearfix">
+<div class="maintop-left">
+    <div class="index-cat clearfix">
+    <!-- #BeginLibraryItem "/library/index_category_tree.lbi" --><!-- #EndLibraryItem --> 
+  </div>
+    <div class="ad-tg clearfix">
+   	<!--<div class="especially">
+   		<a class="link1 link" href="#">8% SALE</a>
+   		<a class="link2 link" href="#">NEW FFACTORIAL</a>
+   		<a class="link3 link" href="#">LABELFREIKNO</a>
+   		<a class="link4 link" href="#">本周hot</a>
+   	</div>-->
+   	<div class="notice">
+   		<p class="stitle">NOTICE & EVENT </p>
+   	
+   		<a class="link1 link" href="/article.php?id=83">STNO1零售等级会员优惠</a><br/>
+   		<a class="link1 link" href="/article.php?id=84">时尚潮服入驻本店</a><br/>
+       <a class="link1 link" href="/goods_bag_add.php">淘宝数据包下载</a>
+   		
+   		
+   	</div>
+  </div>
+</div>
+<div class="maintop-right">
+   <div class="index-banner clearfix "><!-- #BeginLibraryItem "/library/index_banner.lbi" --><!-- #EndLibraryItem --> </div>
+ <div class="ad-lb sbanner clearfix">
+		<a href="http://streetno1.com/brand.php?id=28">
+			<img src="../../images/upload/Image/home_img/s1.jpg" />
+		</a>
+		<a href="http://streetno1.com/brand.php?id=44">
+			<img src="../../images/upload/Image/home_img/s2.jpg" />
+		</a>
+		<a href="http://streetno1.com/brand.php?id=56">
+			<img src="../../images/upload/Image/home_img/s3.jpg" />
+		</a>
+  </div>
+
+</div>
+
+ 
+</div>
+
+<div class="index-body">
+  <div class="indexpage">
+    <div class="body-goods">
+    <div class="goods-title">
+      	<img src="./images/hot_brand.jpg?1" />
+      </div>
+      <div class="hot_brand">
+      <a href="/brand.php?id=59" class="brand-link">
+          <img  src='../../images/upload/Image/hot_brand/1.jpg' />
+      </a>
+      <a href="/brand.php?id=49" class="brand-link">
+          <img  src='../../images/upload/Image/hot_brand/2.jpg' />
+      </a>
+      <a href="/brand.php?id=34" class="brand-link">
+          <img  src='../../images/upload/Image/hot_brand/3.jpg' />
+      </a>
+      <a href="/brand.php?id=60" class="brand-link">
+          <img  src='../../images/upload/Image/hot_brand/4.jpg' />
+      </a>
+        
+
+      </div>
+      <div class="goods-title">
+      	<img src="./images/new_title.jpg?1" />
+      </div>
+      </div>
+      <div class="clearfix goods-wrap">
+        
+       
+            <!-- TemplateBeginEditable name="最新" -->
+<!-- #BeginLibraryItem "/library/recommend_new.lbi" --><!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+
+ <div style="margin-bottom: 20px">
+      	<a href="/category.php?id=40">
+      			<img width="395" src='../../images/upload/Image/acc_img/tu1.jpg' />
+      	</a>
+      	<a href="/brand.php?id=988">
+      		<img width="395" src='../../images/upload/Image/acc_img/tu2.jpg' />
+      	</a>
+        
+      	<a href="/goods.php?id=1540">
+      		<img width="395" src='../../images/upload/Image/acc_img/tu3.jpg' />
+      	</a>
+      
+      </div>
+      
+      <div style="margin-bottom: 20px">
+      	<a href="/category.php?id=61">
+      			<img width="595" src='../../images/upload/Image/home_img/b1.jpg' />
+      	</a>
+      	<a href="http://www.streetno1.com/goods.php?id=1796">
+      		<img width="595" src='../../images/upload/Image/home_img/b2.jpg' />
+      	</a>
+      </div>
+       <div class="goods-title" style="display:none">
+      	<img src="./images/best_title.jpg" />
+      </div>
+      
+           
+      
+       
+      </div>
+     
+
+    
+  </div>
+</div>
+<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
+</body>
+</html>

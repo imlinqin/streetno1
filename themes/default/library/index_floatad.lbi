@@ -1,0 +1,60 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- {if $ad_ad} -->	
+<DIV 
+      style="Z-INDEX: 99; POSITION: absolute;  DISPLAY: none; BACKGROUND: white; TOP: 250px; LEFT: 200px; border:1px solid#ccc;background:#fff;" 
+      id=MAKESHOPLY1>
+	  <a href="javascript:MAKESHOP_LY_NOVIEW(0,'MAKESHOPLY1','eventwindow1','20100208','1')" style="position:absolute;top:0px;right:0px;display:block;border:1px solid #666;font-size:12px;background:#fff;margin:5px;padding:2px 6px;cursor:pointer;text-decoration:none;color:#666;" >关闭</a>
+	  <div  style="position:absolute;bottom:0px;right:0px;padding:5px;font:normal 12px tahoma;color:#09c">
+	    <FORM style="MARGIN: 0px" method=post name=form1 
+            action=event.html><INPUT value=close type=hidden name=type><INPUT 
+            value=20091130 type=hidden name=enddate><INPUT value=1 type=hidden 
+            name=display> 
+			<FONT  style="color:#666">
+                 <INPUT 
+                  onclick="MAKESHOP_LY_NOVIEW(1,'MAKESHOPLY1','eventwindow1','20100208','1')" 
+                  value=yes type=checkbox name=no>一天不显示&nbsp;</FONT></A></FORM>
+				  
+	  </div>
+	  
+	  <!-- {foreach from=$ad_ad item=ad name="ad_foreach"} -->
+	{if $smarty.foreach.ad_foreach.index < 1 }
+    <a href="{$ad.url}" target="_blank"><img style='max-width: 800px' src="{$ad.content}"  border="0"></a>
+	  {/if}  <!-- {/foreach} -->
+  
+
+	</DIV>
+      <SCRIPT language=JavaScript>
+function setCookie(cookieName,cookieValue,nDays) {
+ var today = new Date();
+ var expire = new Date();
+ expire.setTime(today.getTime() + 3600000*24*nDays);
+ cookie_temp = cookieName+"="+escape(cookieValue)+"; path=/;";
+ if (nDays!="0") cookie_temp += "expires="+expire.toGMTString();
+ document.cookie = cookie_temp;
+}
+function getCookie(name) {
+    lims = document.cookie;
+    var index = lims.indexOf(name + "=");
+    if (index == -1) return null;
+    index = lims.indexOf("=", index) + 1; // first character 
+    var endstr = lims.indexOf(";", index);
+    if (endstr == -1) endstr = lims.length; // last character
+    return unescape(lims.substring(index, endstr));  
+}
+function MAKESHOP_LY_VIEW(layername,x,y) {
+    var _x = x;
+    var _y = y;
+        
+    document.all(layername).style.display="block";
+    document.all(layername).style.posLeft=_x;  
+    document.all(layername).style.posTop=_y;
+}
+        
+function MAKESHOP_LY_NOVIEW(temp,layername,eventname,enddate,day) {
+    document.getElementById(layername).style.display = "none";
+    if (temp==1) setCookie(eventname,enddate,day);
+}
+if (getCookie("eventwindow1")!="20100208") MAKESHOP_LY_VIEW("MAKESHOPLY1","50","150");
+</SCRIPT>		
+<!-- {else} -->
+<!-- {/if} -->

@@ -1,0 +1,51 @@
+{if $full_page}
+<!-- $Id: users_list.htm 15617 2009-02-18 05:18:00Z sunxiaodong $ -->
+{include file="pageheader.htm"}
+{insert_scripts files="../js/utils.js,listtable.js"}
+
+<div class="form-div">
+<a href="goods_bag_add.php?act=add">增加</a></div>
+
+<form method="POST" action="" name="listForm">
+<!-- start topics list -->
+<div class="list-div" id="listDiv">
+{/if}
+<!--用户列表部分-->
+<table cellpadding="3" cellspacing="1">
+  <tr>
+    
+    <th width="150">标题</th>
+    
+    <th>下载次数</th>
+	<th>谁下载</th>
+    <th>{$lang.handler}</th>
+  <tr>
+  
+  {foreach from=$topic_list item=topic}
+  <tr>
+   
+    <td class="first-cell" >{$topic.csv_title|escape}</td>
+     <td align="center">{$topic.csv_click}</td>
+	  <td align="left"><span title='{$topic.csv_ip}'>{$topic.csv_ip|truncate:120:"..."}</span></td>
+	 
+	  <!--
+       <td align="center">{if $topic.is_validated} <img src="images/yes.gif"> {else} <img src="images/no.gif"> {/if}</td>
+    -->
+  
+    <!--<td align="center">{$topic.reg_time}</td>-->
+    <td align="center" style="width: 10%">
+      <a href="goods_bag_add.php?act=edit&id={$topic.csv_id}" title="{$lang.edit}"><img src="images/icon_edit.gif" border="0" height="16" width="16" /></a>
+      <a href="javascript:confirm_redirect('{$lang.remove_confirm}', 'goods_bag_add.php?act=remove&id={$topic.csv_id}')" title="{$lang.remove}"><img src="images/icon_drop.gif" border="0" height="16" width="16" /></a>    </td>
+  </tr>
+  {foreachelse}
+  <tr><td class="no-records" colspan="4">{$lang.no_records}</td></tr>
+  {/foreach}
+</table>
+
+
+</div>
+<!-- end topics list -->
+</form>
+
+
+{include file="pagefooter.htm"}

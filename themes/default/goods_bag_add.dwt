@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>{$page_title}</title>
+<!-- TemplateEndEditable --><!-- TemplateBeginEditable name="head" --><!-- TemplateEndEditable -->
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
+<link href="style.css" rel="stylesheet" type="text/css" />
+<!-- {if $cat_style} -->
+<link href="{$cat_style}" rel="stylesheet" type="text/css" />
+<!-- {/if} -->
+{* 包含脚本文件 *}
+{insert_scripts files='common.js,global.js,flash.js,compare.js,link.js'}
+</head>
+<body>
+<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem -->
+<div class="wrap" style="width:1200px;margin:0 auto">
+
+	<div class="bar_l" style="width:1200px;margin:0 auto">
+   
+
+		 
+		
+			<!-- #BeginLibraryItem "/library/submenu.lbi" --><!-- #EndLibraryItem -->
+
+		 <!-- #BeginLibraryItem "/library/online_msg.lbi" --><!-- #EndLibraryItem -->
+		 
+		  
+		</div>
+		
+	</div>
+
+
+  <div class="bar_r" style="width:1200px;margin:0 auto">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-top:1px #c1c1c1 solid;">
+      <tr>
+      	<td height="30">&nbsp;<a href="index.php">首页</a> >streetno1 数据包下载</td>
+      </tr>
+	  <tr>
+      	<td height="30" align="center">
+        <span style="font-size:16px;color:red;line-height:25px;">导入淘宝助理上传前需先点击图片搬家，图片搬家成功即可上传<br/>
+        如果不是淘宝助手5.7版本的数据包导入后数据包发货地会转成国内发货，还麻烦各位亲亲动手改改~~<br/></span>
+        <a target="_blank" style="color:#0066CC" href="http://mydown.yesky.com/pcsoft/103548599.html">淘宝助手最新版下载地址http://mydown.yesky.com/pcsoft/103548599.html</a><br>
+
+        <div>
+        <img width="800" src='http://img.streetno1.com/images/upload/Image/bag/1.jpg' /></div>
+		
+		<!-- 为了加快本站数据包下载速度，数据包已放到115网盘，下载方法：<br>第一步<img src="http://hellokoko.cn/images/00000001.gif"><br>第二步<img src="http://hellokoko.cn/images/shujubao.gif">
+		 -->
+		</td>
+      </tr>
+      <tr>
+      	<td>
+			
+<br />
+
+
+
+ {if $login eq yes }    
+
+
+<table width="100%" cellpadding="0" cellspacing="0" style="margin:auto;width:97%">
+<tr>
+<td style="border-bottom:3px solid #c1c1c1;text-align:center;font:12px;width:70px;height:28px;">编号</td>
+<td style="border-bottom:3px solid #c1c1c1;text-align:center;font:12px;width:200px;">题目</td>
+<td style="border-bottom:3px solid #c1c1c1;text-align:center;font:12px;">其它信息</td>
+<td style="border-bottom:3px solid #c1c1c1;text-align:center;font:12px;width:150px;">下载</td>
+</tr>
+{foreach from=$topic_list item=topic}
+<tr  onmouseover="this.style.backgroundColor='#F7F7F7' " onmouseout="this.style.backgroundColor='' ">
+<td style="border-bottom:1px solid #eee;text-align:center;font:normal 12px Tahoma;width:70px;height:30px">{$topic.csv_id}</td>
+<td style="border-bottom:1px solid #eee;font:normal 12px Tahoma;width:200px;">{$topic.csv_title|escape}</td>
+<td style="border-bottom:1px solid #eee;text-align:center;font:normal 12px Tahoma;">&nbsp;{$topic.csv_title_a}</td>
+<td style="border-bottom:1px solid #eee;text-align:center;font:normal 12px Tahoma;width:150px;color:#999">
+<a title="{$topic.csv_title|escape}" href="goods_bag_add.php?id={$topic.csv_id}" target="_blank" >下载</a></td>
+</tr>
+{/foreach}
+</table>
+<br />
+
+{elseif $login eq user_rank }
+<div style="text-align:center">您的会员还没有审核通过</div>
+
+	
+{else}	
+<div style="text-align:center">会员登陆后才可以访问</div>
+<form name="formLogin" action="goods_bag_add.php?act=act_login" method="post" onSubmit="return userLogin()">
+    <table width="346" border="0" align="center" cellpadding="2" cellspacing="2">
+      <tr>
+        <td width="30%" align="right"></td>
+        <td width="70%"><input name="username" type="text" class="inputBg" size="20" maxlength="50" style="width:120px" value="{$use_name}" /></td>
+      </tr>
+      <tr>
+        <td height="29" align="right"></td>
+        <td>
+        <input name="password" type="password"  class="inputBg" size="20" maxlength="50" style="width:120px"/>        </td>
+      </tr>
+      <!-- 判断是否启用验证码{if $enabled_captcha} -->
+      <tr>
+        <td align="right">&nbsp;</td>
+        <td><input type="text" size="12" name="captcha" class="inputBg" />
+        <img src="captcha.php?is_login=1&{$rand}" alt="captcha" style="vertical-align: middle;cursor: pointer;" onClick="this.src='captcha.php?is_login=1&'+Math.random()" /> </td>
+      </tr>
+      <!--{/if}-->
+      <tr>
+        <td colspan="2" align="center">
+       <input type="submit" value="提交" />
+         </td>
+        </tr>
+    </table>
+    </form>
+{/if}
+
+
+
+
+
+       </td>
+      </tr>
+	  
+    </table>
+	
+	
+	
+	
+	
+    </div>
+    </div>
+</div>
+<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
+</body>
+</html>

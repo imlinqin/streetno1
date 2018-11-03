@@ -1,0 +1,33 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+ 
+<!-- {if $hot_goods} -->
+<!-- {if $cat_rec_sign neq 1} -->
+
+  <!-- {/if} -->
+  <!--{foreach from=$hot_goods item=goods}-->
+
+
+ <a href="{$goods.url}" class="link">
+    <div  class="imgleft">
+     <img src="{$goods.thumb}" alt="{$goods.name|escape:html}" class="goodsimg" />
+    </div>
+    <div  class="textbox">
+    <p>{$goods.brand_name}</p>
+    <p>{$goods.short_name|escape:html}</p>
+    <p class="price">
+       <!-- {if $goods.promote_price neq ""} -->
+    <font class="shop_s">{$lang.promote_price}<b>{$goods.promote_price}</b></font>
+    <!-- {else}-->
+    <font class="shop_s"><b>{$goods.shop_price}</b></font>
+    <!--{/if}-->
+    </p>
+    </div>
+    </a>
+
+
+
+  <!--{/foreach}-->
+  <!-- {if $cat_rec_sign neq 1} -->
+
+<!-- {/if} -->
+<!-- {/if} -->
