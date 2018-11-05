@@ -144,10 +144,10 @@ if (Object.prototype.toJSONString){
       <a href="/brand.php?id=80" class="brand-link">
           <img  src='http://img.streetno1.com/images/upload/Image/hot_brand/2.jpg' />
       </a>
-      <a href="/brand.php?id=71" class="brand-link">
+      <a href="/brand.php?id=71&page=6&sort=goods_id&order=DESC" class="brand-link">
           <img  src='http://img.streetno1.com/images/upload/Image/hot_brand/3.jpg' />
       </a>
-      <a href="/brand.php?id=63" class="brand-link">
+      <a href="/brand.php?id=63&page=5&sort=goods_id&order=DESC" class="brand-link">
           <img  src='http://img.streetno1.com/images/upload/Image/hot_brand/4.jpg' />
       </a>
         
